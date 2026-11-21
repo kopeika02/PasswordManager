@@ -6,10 +6,10 @@ import os
 
 
 if not os.path.exists("vault.bin"):
-    print("Первый запуск, придумайте мастер-пароль")
+    print("First launch, create a master password")
     while True:
-        master = input("Мастер-пароль: ")
-        #master = getpass("Мастер-пароль: ")
+        master = input("Master password: ")
+        #master = getpass("Master password: ")
         if not check_master_password(master):
             continue
         #again = getpass("Повторите: ")
@@ -18,31 +18,31 @@ if not os.path.exists("vault.bin"):
             break
         print("Пароли не совпали, попробуйте ещё раз")
 else:
-    master = input("Мастер-пароль: ") #для ide
-    #master = getpass("Мастер-пароль: ")
+    master = input("Master password: ") #для ide
+    #master = getpass("Master password: ")
     try:
         list_services(master)
     except ValueError:
-        print("Неверный мастер-пароль")
+        print("Incorrect master password")
         exit()
 
 while True:
     print(
-   ' \n 1. Добавить пароль \n 2. Показать пароль \n 3. Список сервисов \n 4. Сгенерировать пароль \n 0. Выход'
+   ' \n 1. add password \n 2. show password \n 3. services list \n 4. generate password \n 0. exit '
     )
 
     a = input()
 
     if a == '1':
 
-        service = input('Cервис:')
-        login = input('Логин:')
-        choice = input('Сгенерировать пароль? y/n ')
+        service = input('serice:')
+        login = input('login:')
+        choice = input('generate password? y/n ')
         if choice == 'y':
             password = generate_password()
-            print('Сгенерирован пароль:', password)
+            print('generated password:', password)
         else:
-            password = input('Ваш пароль: ')
+            password = input('ur password: ')
 
 
         add_password(
@@ -54,9 +54,9 @@ while True:
 
 
     elif a == '2':
-        password = get_password(input('Сервис: '), master)
+        password = get_password(input('service: '), master)
         if password is None:
-            print('Такого сервиса нет')
+            print('There is no such service')
         else:
             print(password)
 
@@ -68,9 +68,9 @@ while True:
 
     elif a == '4':
         generatedPassword = generate_password()
-        print(generatedPassword,' - сгенерированый пароль')
+        print(generatedPassword,' - generated password')
 
     elif a == '0':
         break
     else:
-        print('Нет такого пункта')
+        print('invalid input')
